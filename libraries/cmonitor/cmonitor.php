@@ -106,13 +106,13 @@ class Cmonitor {
 
 	
 	// codeigniter set
-	var $api_key = '';
-	var $protocol = 'https';
-	var $debug_level = CS_REST_LOG_NONE;
-	var $host = 'api.createsend.com';
-	var $log = '';
-	var $serialiser = '';
-	var $transport = '';
+	var $ci_api_key = '';
+	var $ci_protocol = 'https';
+	var $ci_debug_level = CS_REST_LOG_NONE;
+	var $ci_host = 'api.createsend.com';
+	var $ci_log = '';
+	var $ci_serialiser = '';
+	var $ci_transport = '';
 	
 	
     /**
@@ -136,33 +136,33 @@ class Cmonitor {
             $this->initialize($params);
         }
 		 	   
-        $this->_log = is_null($this->log) ? new CS_REST_Log($this->debug_level) : $this->log;
+        $this->_log = is_null($this->ci_log) ? new CS_REST_Log($this->ci_debug_level) : $this->ci_log;
             
-        $this->_protocol = $this->protocol;
-        $this->_base_route = $this->protocol.'://'.$this->host.'/api/v3/';
+        $this->_protocol = $this->ci_protocol;
+        $this->_base_route = $this->ci_protocol.'://'.$this->ci_host.'/api/v3/';
 
         $this->_log->log_message('Creating wrapper for '.$this->_base_route, get_class($this), CS_REST_LOG_VERBOSE);
 
-        $this->_transport = is_null($this->transport) ?
+        $this->_transport = is_null($this->ci_transport) ?
             CS_REST_TRANSPORT_get_available($this->is_secure(), $this->_log) :
-            $this->transport;
+            $this->ci_transport;
 
         $transport_type = method_exists($this->_transport, 'get_type') ? $this->_transport->get_type() : 'Unknown';
         $this->_log->log_message('Using '.$transport_type.' for transport', get_class($this), CS_REST_LOG_WARNING);
 
-        $this->_serialiser = is_null($this->serialiser) ?
-            CS_REST_SERIALISATION_get_available($this->_log) : $this->serialiser;
+        $this->_serialiser = is_null($this->ci_serialiser) ?
+            CS_REST_SERIALISATION_get_available($this->_log) : $this->ci_serialiser;
             
         $this->_log->log_message('Using '.$this->_serialiser->get_type().' json serialising', get_class($this), CS_REST_LOG_WARNING);
 
         $this->_default_call_options = array (
-            'credentials' => $this->api_key.':nopass',
+            'credentials' => $this->ci_api_key.':nopass',
             'userAgent' => 'CS_REST_Wrapper v'.CS_REST_WRAPPER_VERSION.
                 ' PHPv'.phpversion().' over '.$transport_type.' with '.$this->_serialiser->get_type(),
             'contentType' => 'application/json; charset=utf-8', 
             'deserialise' => true,
-            'host' => $this->host,
-            'protocol' => $this->protocol
+            'host' => $this->ci_host,
+            'protocol' => $this->ci_protocol
         );
 		
 		log_message('debug', 'Campaign Moniter Class Initialized');	
