@@ -86,7 +86,7 @@ class Subscribers extends CI_Controller {
 		);
 		
 		$subscribers = array(
-		    'Subscribers' => $subscribers
+		    'Subscribers' => $subscribers,
 			 'Resubscribe' => TRUE,
         );
 		
