@@ -1,54 +1,29 @@
 <?php
 
 class Example extends CI_Controller {
-
-	var $_list_id  = 'YOUR LIST ID HERE';
 	
 	function __construct()
 	{
 		parent::__construct();
-		
+				
+		// Load the Campaign monitor library
 		$this->load->library('cmonitor');
 	}
-	
 
 	
-	/*
-	 * 
-	 * Add a subscriber to a list
-	 *
-	 */
 	function index()
-	{	
-		$subscriber = array(
-			'EmailAddress' => 'example@example.com',
-			'Name' => 'username'
-	    );
-		$result = $this->cmonitor->post_request('subscribers/'.$this->_list_id.'.json', $subscriber);
-		if($result->was_successful())
-		{
-			echo 'yep all was good and this is what was returned '.$result->http_status_code;
-			print_r($result);
-		}
-	}
-	
-	/*
-	 * 
-	 * Get an existing subscriber from a list
-	 *
-	 */
-	function get()
 	{
+		//$this->load->library('cmonitor');
+		
 		$email = 'example@example.com';
-		$result = $this->cmonitor->get_request('subscribers/'.$this->_list_id.'.json?email='.urlencode($email));
-		if($result->was_successful())
-		{
-			echo 'yep all was good and this is what was returned '.$result->http_status_code;
-			print_r($result);
-		}
-    }
-	
+		// get the list id based on a name
+		$list = '21c90358ae309a2f525a1ad7d42d87e4';
+		// run the request		
+		$result = $this->cmonitor->get_request('subscribers/'.$list.'.json?email='.urlencode($email));
+		return $result;
+	}
+
 }
 	
 /* End of file example.php */
-/* Location: ./application/controllers/example.php
+/* Location: ./application/controllers/example.php */

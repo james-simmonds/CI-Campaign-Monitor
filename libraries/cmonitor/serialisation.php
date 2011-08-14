@@ -1,6 +1,7 @@
 <?php
 
-require_once dirname(__FILE__).'/services_json.php';
+require_once 'services_json.php';
+
 
 function CS_REST_SERIALISATION_get_available($log) { 
     $log->log_message('Getting serialiser', __FUNCTION__, CS_REST_LOG_VERBOSE);
@@ -10,6 +11,7 @@ function CS_REST_SERIALISATION_get_available($log) {
         return new CS_REST_ServicesJsonSerialiser($log);
     }    
 }
+
 class CS_REST_BaseSerialiser {
 
     var $_log;

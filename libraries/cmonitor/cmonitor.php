@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 require_once 'serialisation.php';
 require_once 'transport.php';
@@ -105,7 +105,7 @@ class Cmonitor {
     var $_default_call_options;
 
 	
-	// codeigniter set
+	// codeigniter set defaults
 	var $ci_api_key = '';
 	var $ci_protocol = 'https';
 	var $ci_debug_level = CS_REST_LOG_NONE;
@@ -113,7 +113,7 @@ class Cmonitor {
 	var $ci_log = '';
 	var $ci_serialiser = '';
 	var $ci_transport = '';
-	
+	var $ci_lists = array();
 	
     /**
      * Constructor.
@@ -126,7 +126,7 @@ class Cmonitor {
      * @param $transport The transport to use. Used for dependency injection
      * @access public
      */
-    function Cmonitor($params = array()) 
+    function __construct($params = array()) 
 	{
        
 		$this->CI =& get_instance();
@@ -135,7 +135,7 @@ class Cmonitor {
         {
             $this->initialize($params);
         }
-		 	   
+		
         $this->_log = is_null($this->ci_log) ? new CS_REST_Log($this->ci_debug_level) : $this->ci_log;
             
         $this->_protocol = $this->ci_protocol;
@@ -267,4 +267,26 @@ class Cmonitor {
          
         return new CS_REST_Wrapper_Result($call_result['response'], $call_result['code']);
     }
+	
+	
+	
+	/**
+	 * Get List API ID
+	 *
+	 * @access	private
+	 * @param	string
+	 * @return		string
+	 */	
+	public function get_list($list_name)
+	{
+		if(!empty($this->ci_lists))
+		{
+			if(array_key_exists($list_name, $this->ci_lists))
+			{
+				return $this->ci_lists[$list_name];
+			}
+		}		
+		return $list_name;
+	}
+	
 }
