@@ -17,7 +17,7 @@ class Example extends CI_Controller {
 		
 		$email = 'example@example.com';
 		// get the list id based on a name
-		$list = '21c90358ae309a2f525a1ad7d42d87e4';
+		$list = 'YOUR LIST ID HERE';
 		// run the request		
 		$result = $this->cmonitor->get_request('subscribers/'.$list.'.json?email='.urlencode($email));
 		return $result;
