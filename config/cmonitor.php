@@ -33,4 +33,7 @@
 	 *
 	 *
 	 */
-	$config['ci_lists'] = array();	
+	$config['ci_lists'] = array(
+		'test' => 'YOUR LIST ID HERE'
+	);	
+
